@@ -52,11 +52,22 @@ if (Get-Command scoop -ErrorAction SilentlyContinue) {
 }
 
 # check if python is installed
-if (Get-Command python -ErrorAction SilentlyContinue) {
-  Write-Output "python is installed, Skip installing python"
+if (Get-Command python3 -ErrorAction SilentlyContinue) {
+  Write-Output "python3 is installed, Skip installing python3"
+  # TODO: need to install python3 if the python3 is a win11 shim for python install
 } else {
-  scoop install python
+  scoop install python3
 }
+
+# init python3 venv if not exists
+if (Test-Path $PSScriptRoot/venv) {
+  Write-Output "venv exists, Skip init venv"
+} else {
+  Write-Output "init venv"
+  python3 -m venv $PSScriptRoot/venv
+}
+
+& "$PSScriptRoot/venv/Scripts/pip" install -r $PSScriptRoot/requirements.txt
 
 # ensure fzf is installed
 if (Get-Command fzf -ErrorAction SilentlyContinue) {
