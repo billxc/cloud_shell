@@ -1,4 +1,4 @@
 pushd $PSScriptRoot
 git pull origin master
-pip install -r requirements.txt
+init.ps1
 popd
