@@ -3,10 +3,12 @@
 #       on Windows: /c/Users/me/foo -> C:\Users\me\foo
 #       on Windows: Users/me/foo -> Users\me\foo
 
+import os
+import re
+import sys
+import pyperclip
 
 def ospath(path):
-    import os
-    import re
     if os.name == 'nt':
         # convert to windows path
         path = re.sub(r'/', r'\\', path)
@@ -22,13 +24,16 @@ def ospath(path):
     return path
 
 if __name__ == '__main__':
-    import sys
-    # read path from clipboard
-    import pyperclip
-    path = pyperclip.paste()
+    
+    # try read path from args, or from clipboard
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+    else:
+        path = pyperclip.paste()
+
     # convert path
     path = ospath(path)
     # write path to clipboard
     pyperclip.copy(path)
     # print success message, and the path
-    print('Path converted to OS format:' + path)
+    print('Path converted to OS format:\n' + path)
