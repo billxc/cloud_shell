@@ -13,7 +13,6 @@ Show all history commands, and filter with the `fzf` command
 1. x
 Show all available commands, and filter with the `fzf` command, choose one to execute
 
-
 ## Implementation
 1. Very simple functions are implemented in `bash` or `powershell`
 1. Leverage `fzf` to implement fuzzy search
