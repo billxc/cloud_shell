@@ -42,6 +42,8 @@ function Add-Path {
 
 Write-Output "adding current dir $PSScriptRoot into path"
 Add-Path $PSScriptRoot
+Write-Output "adding local_commands dir $PSScriptRoot/local_commands into path"
+Add-Path $PSScriptRoot/local_commands
 
 # install scoop if not installed
 if (Get-Command scoop -ErrorAction SilentlyContinue) {
