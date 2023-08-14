@@ -50,13 +50,22 @@ if (Get-Command scoop -ErrorAction SilentlyContinue) {
   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
   irm get.scoop.sh | iex
 }
+scoop bucket add extras
 
 # check if python is installed
-if (Get-Command python3 -ErrorAction SilentlyContinue) {
-  Write-Output "python3 is installed, Skip installing python3"
+if ($python3_path = Get-Command python3 -ErrorAction SilentlyContinue) {
+  # Windows have shim for python3 install, check if it is a shim
+  $win_fake_python3 = Join-Path $env:USERPROFILE "AppData\Local\Microsoft\WindowsApps\python3.exe"
+  if ($python3_path.Path -eq $win_fake_python3) {
+    Write-Output "python3 is a win11 shim for python install, use scoop to install it"
+    scoop install python
+  } else {
+    Write-Output "python3 is installed, Skip installing python3"
+  }
   # TODO: need to install python3 if the python3 is a win11 shim for python install
 } else {
-  scoop install python3
+  Write-Output "python3 not installed, use scoop to install it"
+  scoop install python
 }
 
 # init python3 venv if not exists
