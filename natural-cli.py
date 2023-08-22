@@ -60,11 +60,13 @@ if __name__ == "__main__":
     args = " ".join(sys.argv[1:])
     # get the response from the API
     response = get_response(args)
-    # print the response
-    print(response)
     command_valid = "[X]" not in response
     if not command_valid:
+        print("Invalid command, please try again.")
         exit()
+    # print the response
+    print(response)
+    
     # ask the user if they want to execute the command, default is yes
     execute = input("Execute? [Y/n] ").lower()
     # if the user wants to execute the command
