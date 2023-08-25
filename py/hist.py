@@ -14,7 +14,7 @@ elif os.name == "posix":
 
 # if os_mac
 elif os.name == "mac":
-    relative_history_path = r"~/.bash_history"
+    relative_history_path = r"~/.zsh_history"
     absolute_history_path = os.path.expanduser(relative_history_path)
 
 

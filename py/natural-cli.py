@@ -5,18 +5,17 @@ import os
 import openai
 import platform
 from distro import name as distro_name
-from openai_config import config
-
-for key, value in config.items():
-    setattr(openai, key, value)
+import yaml
 
 operating_systems = {
-    "Linux": "Linux/" + distro_name(pretty=True),
-    "Windows": "Windows " + platform.release(),
-    "Darwin": "Darwin/MacOS " + platform.mac_ver()[0],
-}
+        "Linux": "Linux/" + distro_name(pretty=True),
+        "Windows": "Windows " + platform.release(),
+        "Darwin": "Darwin/MacOS " + platform.mac_ver()[0],
+    }
 current_platform = platform.system()
 os_name = operating_systems.get(current_platform, current_platform)
+
+current_shell = os.environ.get("SHELL", "")
 
 SHELL_PROMPT = """###
 Provide only {shell} commands for {os} without any description.
@@ -26,9 +25,8 @@ If multiple steps required try to combine them together.
 YOU NEED TO PROVIDE A VALID SHELL COMMAND ONLY, NO DESCRIPTIONS.
 If you cannot provide a valid shell command, add [X] to the end of your message.
 ###
-Command:""".format(shell="zsh", os=os_name)
+Command:""".format(shell=current_shell, os=os_name)
 # Prompt: {prompt}
-
 
 def get_response(user_input):
     # get the response from the API
@@ -55,9 +53,33 @@ def get_response(user_input):
     return ""
 
 
-if __name__ == "__main__":
+def runCommand(command):
+    # if mac or linux
+    if os_name == "Darwin/MacOS" or os_name == "Linux":
+        os.system(command)
+    # if windows
+    elif os_name == "Windows":
+        os.system("pwsh " + command)
+
+def main():
+    root = sys.argv[1]
+    # load config from openai_config.yml
+    # open yml file
+    with open(root + "/openai_config.yml", "r") as stream:
+        # load config
+        config = yaml.safe_load(stream)
+    print(config)
+    if config is None:
+        print("Error: No config found.")
+        exit()
+
+    for key, value in config.items():
+        print(key, value)
+        setattr(openai, key, value)
+
+
     # turn the args into a single string
-    args = " ".join(sys.argv[1:])
+    args = " ".join(sys.argv[2:])
     # get the response from the API
     response = get_response(args)
     command_valid = "[X]" not in response
@@ -72,4 +94,10 @@ if __name__ == "__main__":
     # if the user wants to execute the command
     if execute == "" or execute == "y" or execute == "yes":
         # execute the command
-        os.system(response)
+        runCommand(response)
+
+
+if __name__ == "__main__":
+    main()
+
+    

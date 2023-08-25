@@ -1,5 +1,5 @@
 .vscode/
 venv
 local_commands/
-openai_config.py
+openai_config.yml
 __pycache__/
