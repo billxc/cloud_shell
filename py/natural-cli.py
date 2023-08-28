@@ -53,13 +53,13 @@ def get_response(user_input):
     return ""
 
 
-def runCommand(command):
-    # if mac or linux
-    if os_name == "Darwin/MacOS" or os_name == "Linux":
-        os.system(command)
-    # if windows
-    elif os_name == "Windows":
-        os.system("pwsh " + command)
+# def runCommand(command):
+#     # if mac or linux
+#     if os_name == "Darwin/MacOS" or os_name == "Linux":
+#         os.system(command)
+#     # if windows
+#     elif os_name == "Windows":
+#         os.system("pwsh " + command)
 
 def main():
     root = sys.argv[1]
@@ -68,15 +68,13 @@ def main():
     with open(root + "/openai_config.yml", "r") as stream:
         # load config
         config = yaml.safe_load(stream)
-    print(config)
+    # print(config)
     if config is None:
         print("Error: No config found.")
         exit()
 
     for key, value in config.items():
-        print(key, value)
         setattr(openai, key, value)
-
 
     # turn the args into a single string
     args = " ".join(sys.argv[2:])
@@ -88,13 +86,12 @@ def main():
         exit()
     # print the response
     print(response)
-    
-    # ask the user if they want to execute the command, default is yes
-    execute = input("Execute? [Y/n] ").lower()
-    # if the user wants to execute the command
-    if execute == "" or execute == "y" or execute == "yes":
-        # execute the command
-        runCommand(response)
+    # # ask the user if they want to execute the command, default is yes
+    # execute = input("Execute? [Y/n] ").lower()
+    # # if the user wants to execute the command
+    # if execute == "" or execute == "y" or execute == "yes":
+    #     # execute the command
+    #     runCommand(response)
 
 
 if __name__ == "__main__":
