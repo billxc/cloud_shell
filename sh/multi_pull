@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# get script directory
+SH_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+# get project directory
+DIR="$(dirname "$SH_DIR")"
+
+# call py/multi_pull.py with all arguments
+$DIR/venv/bin/python3 $DIR/py/multi_pull.py $@

@@ -19,3 +19,8 @@ fi
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 # Append DIR to PATH in the rc file
 echo "export PATH=\$PATH:$DIR" >> "$HOME/$RC_FILE"
+# Append SH_DIR to PATH in the rc file
+echo "export PATH=\$PATH:$DIR/sh" >> "$HOME/$RC_FILE"
+
+# add permissions to files in SH_DIR
+chmod +x "$DIR/sh/"*

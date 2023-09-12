@@ -35,3 +35,7 @@ deal with the `/` and `\` in the path, convert it to `/` regardless of the OS.
 1. to
 
 `to` uses the chatGPT to generate the command you want to execute, and then execute it.
+
+1. multi_pull
+
+`multi_pull` reads input from the file, and then pull the commits one by one, useful when you want to pull a big repo with big gap with the head. This allows you to pull the commits step by step.
