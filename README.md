@@ -3,6 +3,8 @@ Xiaochen's cloud shell, a unified shell experience across different platforms(Ma
 
 Using the python technology stack to implement the shell functions, and leverage the `fzf` to implement the fuzzy search.
 
+Note: This repo is still under development, and the commands are not yet available on some platforms yet. (Currently, most commands works on windows platform)
+
 ## Usage
 1. Clone the repo
 1. Run `init.ps1` or `init.sh`
