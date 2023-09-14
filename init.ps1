@@ -82,9 +82,4 @@ if (Test-Path $PSScriptRoot/venv) {
 
 & "$PSScriptRoot/venv/Scripts/pip" install -r $PSScriptRoot/requirements.txt
 
-# ensure fzf is installed
-if (Get-Command fzf -ErrorAction SilentlyContinue) {
-  Write-Output "fzf is installed, Skip installing fzf"
-} else {
-  scoop install fzf
-}
+scoop install $(Get-Content scoop_apps.txt) 
