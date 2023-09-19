@@ -11,7 +11,7 @@ def run_cmd_with_fail_retry(cmd):
 def main():
     # first parameter is a file contains the commit hashes, from old to new
     input_file = sys.argv[1]
-    
+    print(input_file)
     # print current dir
     print(os.getcwd())
     # read the file

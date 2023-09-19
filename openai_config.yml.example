@@ -1,0 +1,4 @@
+api_type: azure
+api_base: https://xxxxxx.openai.azure.com/
+api_key: xxxxxxxxxxxxxxxxx
+api_version: 2023-05-15
