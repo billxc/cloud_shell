@@ -20,7 +20,7 @@ elif os.name == "mac":
 
 def read_history():
     history_lines = []
-    with open(absolute_history_path, "r") as f:
+    with open(absolute_history_path, "r", encoding="utf-8") as f:
         history_lines = f.readlines()
     # trim \n
     history_lines = [line.strip() for line in history_lines]
