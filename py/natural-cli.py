@@ -29,9 +29,10 @@ Command:""".format(shell=current_shell, os=os_name)
 # Prompt: {prompt}
 
 def get_response(user_input):
+    global config
     # get the response from the API
     response = openai.ChatCompletion.create(
-        engine="gpt-35-turbo",
+        engine=config["api_model"],
         messages=[{"role": "system", "content": SHELL_PROMPT}, {
             "role": "user", "content": user_input}
         ],
@@ -62,6 +63,7 @@ def get_response(user_input):
 #         os.system("pwsh " + command)
 
 def main():
+    global config
     root = sys.argv[1]
     # load config from openai_config.yml
     # open yml file
