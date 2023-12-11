@@ -67,8 +67,8 @@ if ($python3_path = Get-Command python3 -ErrorAction SilentlyContinue) {
     Write-Output "python3 is a win11 shim for python install, use scoop to install it"
     scoop install python
     Write-Output "Please disable the python shortcut from Settings > Manage App Execution Aliases."
-    Write-Output "After that, press any key to continue..."
-    $host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    Write-Output "After that, rerun this script to continue"
+    exit 1
   } else {
     Write-Output "python3 is installed, Skip installing python3"
   }
