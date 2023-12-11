@@ -53,6 +53,9 @@ if (Get-Command scoop -ErrorAction SilentlyContinue) {
 } else {
   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
   Invoke-RestMethod get.scoop.sh | Invoke-Expression
+  Write-Output "scoop installed"
+  $env:Path = $env:Path + ";" + [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User");
+  Write-Output "scoop added to path"
 }
 scoop bucket add extras
 
