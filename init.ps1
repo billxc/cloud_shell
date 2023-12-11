@@ -82,4 +82,4 @@ if (Test-Path $PSScriptRoot/venv) {
 
 & "$PSScriptRoot/venv/Scripts/pip" install -r $PSScriptRoot/requirements.txt
 
-scoop install $(Get-Content scoop_apps.txt) 
+scoop install $(Get-Content $PSScriptRoot/scoop_apps.txt) 
