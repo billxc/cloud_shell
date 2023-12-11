@@ -5,11 +5,16 @@ Using the python technology stack to implement the shell functions, and leverage
 
 Note: This repo is still under development, and the commands are not yet available on some platforms yet. (Currently, most commands works on windows platform)
 
-## Usage
+## Installation
+
+Invoke-RestMethod https://raw.githubusercontent.com/billxc/cloud_shell/master/install.ps1 | Invoke-Expression
+
+
+<!-- ## Usage
 1. Clone the repo
 1. Run `init.ps1` or `init.sh`
 1. (Window only) Add the repo to `PATH` or run `update_path.ps1`
-1. Enjoy
+1. Enjoy -->
 
 ## Highlighted Functions
 

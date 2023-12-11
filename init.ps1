@@ -52,7 +52,7 @@ if (Get-Command scoop -ErrorAction SilentlyContinue) {
   Write-Output "scoop is installed, Skip installing scoop"
 } else {
   Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-  irm get.scoop.sh | iex
+  Invoke-RestMethod get.scoop.sh | Invoke-Expression
 }
 scoop bucket add extras
 
