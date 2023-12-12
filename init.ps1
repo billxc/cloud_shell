@@ -44,6 +44,8 @@ Write-Output "adding current dir $PSScriptRoot into path"
 Add-Path $PSScriptRoot
 Write-Output "adding local_commands dir $PSScriptRoot/local_commands into path"
 Add-Path $PSScriptRoot/local_commands
+Write-Output "adding local_commands dir $PSScriptRoot/cloud_shell.private into path"
+Add-Path $PSScriptRoot/cloud_shell.private
 Write-Output "adding pwsh dir $PSScriptRoot/pwsh into path"
 Add-Path $PSScriptRoot/pwsh
 
@@ -86,6 +88,6 @@ if (Test-Path $PSScriptRoot/venv) {
   python3 -m venv $PSScriptRoot/venv
 }
 
-& "$PSScriptRoot/venv/Scripts/pip" install -r $PSScriptRoot/requirements.txt
+& "$PSScriptRoot/venv/Scripts/pip" install -r $PSScriptRoot/requirements.txt -U
 
 scoop install $(Get-Content $PSScriptRoot/scoop_apps.txt) 
