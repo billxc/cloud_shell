@@ -7,7 +7,7 @@ Note: This repo is still under development, and the commands are not yet availab
 
 ## Installation
 
-Invoke-RestMethod https://raw.githubusercontent.com/billxc/cloud_shell/master/install.ps1 | Invoke-Expression
+iwr pwsh.xccc.me | iex
 
 
 <!-- ## Usage
