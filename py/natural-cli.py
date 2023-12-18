@@ -5,7 +5,7 @@ import os
 import openai
 import platform
 from distro import name as distro_name
-import yaml
+from config import get_config
 
 operating_systems = {
     "Linux": "Linux/" + distro_name(pretty=True),
@@ -16,6 +16,8 @@ current_platform = platform.system()
 os_name = operating_systems.get(current_platform, current_platform)
 
 current_shell = os.environ.get("SHELL", "")
+
+CONFIG_FILE = "openai_config.yml"
 
 SHELL_PROMPT = """###
 Provide only {shell} commands for {os} without any description.
@@ -50,16 +52,10 @@ def get_response(user_input):
     )
     return response.choices[0].message.content
 
-
 def init_config_and_client():
     global config
     global client
-    root = sys.argv[1]
-    # load config from openai_config.yml
-    # open yml file
-    with open(root + "/openai_config.yml", "r") as stream:
-        # load config
-        config = yaml.safe_load(stream)
+    config = get_config(CONFIG_FILE)
     # print(config)
     if config is None:
         print("Error: No config found.")
@@ -82,9 +78,13 @@ def init_config_and_client():
         )
 
 def main():
+    if "-4" in sys.argv:
+        sys.argv.remove("-4")
+        global CONFIG_FILE
+        CONFIG_FILE = "openai_config-gpt4.yml"
     init_config_and_client()
     # turn the args into a single string
-    args = " ".join(sys.argv[2:])
+    args = " ".join(sys.argv[1:])
     # get the response from the API
     response = get_response(args)
     command_valid = "[X]" not in response

@@ -42,12 +42,31 @@ function Add-Path {
 
 Write-Output "adding current dir $PSScriptRoot into path"
 Add-Path $PSScriptRoot
-Write-Output "adding local_commands dir $PSScriptRoot/local_commands into path"
-Add-Path $PSScriptRoot/local_commands
-Write-Output "adding local_commands dir $PSScriptRoot/cloud_shell.private into path"
-Add-Path $PSScriptRoot/cloud_shell.private
 Write-Output "adding pwsh dir $PSScriptRoot/pwsh into path"
 Add-Path $PSScriptRoot/pwsh
+
+$onedrive_dirs = @()
+
+# Default OneDrive Dirs
+$default_onedrive_dir = Join-Path -Path $HOME -ChildPath "OneDrive/cloud_shell"
+$onedrive_dirs += $default_onedrive_dir
+
+# Other o365 OneDrive Dirs(all folders under ~/, and starts with "OneDrive - ")
+Get-ChildItem -Path $HOME -Directory | ForEach-Object {
+    if ($_.Name.StartsWith("OneDrive - ")) {
+        $onedrive_dir = Join-Path -Path $HOME -ChildPath "$($_.Name)/cloud_shell"
+        $onedrive_dirs += $onedrive_dir
+    }
+}
+
+# Add OneDrive Dirs into path
+foreach ($onedrive_dir in $onedrive_dirs) {
+    # We are not testing if the dir exists, because we want to add the dir into path even if it is not exists
+    # User may create the dir later
+    Write-Output "adding onedrive dir $onedrive_dir into path"
+    Add-Path $onedrive_dir
+}
+
 
 # install scoop if not installed
 if (Get-Command scoop -ErrorAction SilentlyContinue) {
