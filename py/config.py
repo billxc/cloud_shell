@@ -1,6 +1,16 @@
 import os
 import yaml
 
+DEBUG = False
+
+def is_debug():
+    global DEBUG
+    return DEBUG
+
+def set_debug():
+    global DEBUG
+    DEBUG = True
+
 def get_config(filename: str):
     """Loop through the config file folder, and then load the config file by name."""
 
@@ -22,6 +32,11 @@ def get_config(filename: str):
     # Loop through the config dirs
     for config_dir in config_dirs:
         config_file = os.path.join(config_dir, filename)
+
         if os.path.isfile(config_file):
-            print(f"Loading config file: {config_file}")
+            dlog(f"Checking config file: {config_file}")
             return yaml.safe_load(open(config_file))
+
+def dlog(*messages):
+    if DEBUG:
+        print(*messages)

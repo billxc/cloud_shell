@@ -5,7 +5,8 @@ import os
 import openai
 import platform
 from distro import name as distro_name
-from config import get_config
+from config import get_config,set_debug, dlog
+from run_command import run_with_confirm
 
 operating_systems = {
     "Linux": "Linux/" + distro_name(pretty=True),
@@ -18,15 +19,20 @@ os_name = operating_systems.get(current_platform, current_platform)
 current_shell = os.environ.get("SHELL", "")
 
 CONFIG_FILE = "openai_config.yml"
-
 SHELL_PROMPT = """###
-Provide only {shell} commands for {os} without any description.
+I am running on {os} with {shell} shell.
+Provide me a shell command for me to execute.
+Using python is okay.
+I need you to provide commands that could be executed.
+Provide the command, without any description.
 If there is a lack of details, provide most logical solution.
 Ensure the output is a valid shell command.
 If multiple steps required try to combine them together.
 YOU NEED TO PROVIDE A VALID SHELL COMMAND ONLY, NO DESCRIPTIONS.
-If you cannot provide a valid shell command, add [X] to the end of your message.
+If you cannot provide a valid shell command, 
+tell me why, and add [X] to the end of your message.
 ###
+
 Command:""".format(
     shell=current_shell, os=os_name
 )
@@ -37,6 +43,7 @@ def get_response(user_input):
     global config
     # get the response from the API
     global client
+    dlog(SHELL_PROMPT)
     response = client.chat.completions.create(
         model=config["api_model"],
         messages=[
@@ -50,6 +57,7 @@ def get_response(user_input):
         presence_penalty=0,
         stop=None,
     )
+    dlog("response is",response)
     return response.choices[0].message.content
 
 def init_config_and_client():
@@ -82,17 +90,22 @@ def main():
         sys.argv.remove("-4")
         global CONFIG_FILE
         CONFIG_FILE = "openai_config-gpt4.yml"
+    if "-d" in sys.argv:
+        sys.argv.remove("-d")
+        set_debug()
     init_config_and_client()
     # turn the args into a single string
     args = " ".join(sys.argv[1:])
+    dlog(args)
     # get the response from the API
     response = get_response(args)
+    dlog("response is",response)
     command_valid = "[X]" not in response
     if not command_valid:
         print("Invalid command, please try again.")
         exit()
     # print the response
-    print(response)
+    run_with_confirm(response, "Is this command correct?")
 
 
 if __name__ == "__main__":
