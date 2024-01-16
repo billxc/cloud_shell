@@ -22,22 +22,22 @@ see all in [full_commands.md](full_commands.md)
 
 1. hist
 
-Show all history commands, and filter with the `fzf` command
+    Show all history commands, and filter with the `fzf` command
 
 1. x
 
-Show all available commands, and filter with the `fzf` command, choose one to execute
+    Show all available commands, and filter with the `fzf` command, choose one to execute
 
 1. reloadpath
 
-reload the `PATH` environment variable, useful when you add a new path to the environment variable
+    reload the `PATH` environment variable, useful when you add a new path to the environment variable
 
 1. update_cloud_shell
 
-update the cloud_shell repo
+    update the cloud_shell repo
 
 1. to
-`to` uses the chatGPT to generate the command you want to execute, and then execute it.
+    `to` uses the chatGPT to generate the command you want to execute, and then execute it.
 
 
 ## Implementation
