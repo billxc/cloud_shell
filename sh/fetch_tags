@@ -1,0 +1,1 @@
+git fetch origin 'refs/tags/*:refs/tags/*'
