@@ -2,9 +2,16 @@
 
 if [ -z "$1" ]
 then
-  ls -G ~/.commands/ | fzf | read cmd_file
+  ls -G /local_commands/ | fzf | read cmd_file
 else
-  ls -G ~/.commands/ | fzf -q $1 | read cmd_file
+  ls -G ~/local_commands/ | fzf -q $1 | read cmd_file
 fi
-echo $cmd_file > ~/.commands/.x_last_select
-source ~/.commands/$cmd_file
+
+if [ -z "$cmd_file" ]
+  echo "No command selected"
+then
+  exit 0
+fi
+
+# echo $cmd_file > ~/.commands/.x_last_select
+# source ~/.commands/$cmd_file
