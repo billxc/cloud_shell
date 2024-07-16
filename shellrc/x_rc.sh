@@ -15,10 +15,10 @@ x(){
 
   if [ -z "$1" ]
   then
-    selected_command=$(printf '%s\n' "${cmds[@]}" | fzf)
+    selected_command=$(printf '%s\n' "${cmds[@]}" | fzf --height 10)
     # ls -G /local_commands/ | fzf | read cmd_file
   else
-    ls -G ~/local_commands/ | fzf -q $1 | read cmd_file
+    selected_command=$(printf '%s\n' "${cmds[@]}" | fzf -q $1 --height 10)
   fi
 
   if [ -z "$selected_command" ]
