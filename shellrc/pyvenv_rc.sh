@@ -22,11 +22,11 @@ pyvenv() {
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
-      exit 1
+      return 1
       ;;
     :)
       echo "Option -$OPTARG requires an argument." >&2
-      exit 1
+      return 1
       ;;
     esac
   done
@@ -46,7 +46,7 @@ pyvenv() {
       echo "Creating new virtual environment $name"
       if [ -d "$env_dir" ]; then
         echo "Virtual environment $name already exists"
-        exit 1
+        return 1
       fi
 
       # deactivate the current environment if any
@@ -64,10 +64,10 @@ pyvenv() {
         echo "Virtual environment $name activated"
       else
         echo "Virtual environment $name does not exist"
-        exit 1
+        return 1
       fi
     fi
-    exit
+    echo "Done"
   fi
 
   ############################################

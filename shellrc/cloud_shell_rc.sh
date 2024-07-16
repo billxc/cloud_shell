@@ -1,5 +1,6 @@
 export CLOUD_SHELL_HOME=$HOME/.cloud_shell
-CLOUD_SHELL_RC=$CLOUD_SHELL_HOME/shellrc/
+export CLOUD_SHELL_RC=$CLOUD_SHELL_HOME/shellrc/
+export CLOUD_SHELL_USER_RC=$HOME/OneDrive/cloud_shell_mac
 
 source $CLOUD_SHELL_RC/pyvenv_rc.sh
 
