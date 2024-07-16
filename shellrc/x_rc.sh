@@ -28,8 +28,19 @@ x(){
   else
     echo $selected_command
     eval $selected_command
+    echo $selected_command > ~/.cloud_shell/.x_last_select
     return 0
   fi
+}
 
-  echo $selected_command > ~/.commands/.x_last_select
+xx(){
+  if [ -f ~/.cloud_shell/.x_last_select ]
+  then
+    last_command=$(cat ~/.cloud_shell/.x_last_select)
+    echo "Running last command:"
+    echo "$last_command"
+    eval $last_command
+  else
+    echo "No last command found"
+  fi
 }
