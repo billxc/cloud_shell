@@ -16,11 +16,18 @@ fi
 # Phe path to the rc file
 # echo "$HOME/$RC_FILE"
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-# Append DIR to PATH in the rc file
-echo "export PATH=\$PATH:$DIR" >> "$HOME/$RC_FILE"
-# Append SH_DIR to PATH in the rc file
-echo "export PATH=\$PATH:$DIR/sh" >> "$HOME/$RC_FILE"
+#######################################################################################################
+# install brew if not installed
+if ! command -v brew &> /dev/null
+then
+    echo "brew not found, installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+# end install brew
+#######################################################################################################
 
-# add permissions to files in SH_DIR
-chmod +x "$DIR/sh/"*
+# CLOUD_SHELL_HOME should be $HOME/.cloud_shell
+# TODO: support other locations
+
+# if source $HOME/.cloud_shell/shellrc/cloud_shell_rc.sh is not in the rc file, add it
+grep -q "source \$HOME/.cloud_shell/shellrc/cloud_shell_rc.sh" "$HOME/$RC_FILE" || echo "source \$HOME/.cloud_shell/shellrc/cloud_shell_rc.sh" >> "$HOME/$RC_FILE"
