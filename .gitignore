@@ -4,3 +4,4 @@ local_commands/
 cloud_shell.private/
 openai_config.yml
 __pycache__/
+.cloud_shell.code-workspace
