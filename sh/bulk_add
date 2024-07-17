@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Git add multiple files at once
+# usage: 
+# 1.bulk_add
+# 2.edit the temp file using your favorite editor
+# 3.save and exit
+# 4.auto extract and add the files listed in the temp file
+
+
+# create a temp file
+temp_file=$(mktemp)
+# open the temp file using the default editor
+vim $temp_file
+# extract the files listed in the temp file
+lines=()
+while read -r line; do
+    # extract the file path from the distracting output
+    line=$(echo $line | cut -d ' ' -f 2)
+    echo $line
+    lines+=($line)
+done < $temp_file
+
+# add the files
+git add "${lines[@]}"
+
+# remove the temp file
+rm $temp_file

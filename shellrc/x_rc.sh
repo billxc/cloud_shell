@@ -1,5 +1,6 @@
 built_in_cmds=(
   "pyvenv"
+  "bulk_add"
   "git fetch origin 'refs/tags/*:refs/tags/*'"
 )
 
