@@ -45,3 +45,7 @@ xx(){
     echo "No last command found"
   fi
 }
+
+gs(){
+  git switch $(git branch | fzf | xargs)
+}
