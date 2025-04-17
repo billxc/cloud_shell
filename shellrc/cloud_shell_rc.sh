@@ -21,5 +21,6 @@ SAVEHIST=10000
 # setopt HIST_FIND_NO_DUPS    # When searching through history, ignore duplicates.
 # setopt HIST_SAVE_NO_DUPS    # When saving the history file, do not keep duplicates.
 
+export PATH="/$HOME/OneDrive/cloud_shell_mac:$PATH"
 
 [ -f /$HOME/OneDrive/cloud_shell_mac/shellrc.sh ] && source /$HOME/OneDrive/cloud_shell_mac/shellrc.sh
